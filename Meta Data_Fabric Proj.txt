@@ -1,0 +1,108 @@
+Meta Data
+
+
+(Raw Schema Information)
+
+1. bronze_Customers:
+
+[customer_id, customer_unique_id, customer_zip_code_prefix, customer_city, customer_state]
+
+
+Calculated Columns= {customer_state_name/ customer_full_location/ customer_region}
+
+
+
+2. bronze_order_item:
+
+[order_id, order_item_id, product_id, seller_id, shipping_limit_date, price, freight_value]
+
+
+Calculated Columns= {shipping_date/ shipping_time/ total_item_value/ freight_percentage/ product_price_category/ shipping_cost_category}
+
+
+
+3. bronze_order_payment:
+
+[order_id, payment_sequential, payment_type, payment_installments, payment_value]
+
+
+Calculated Columns= {payment_type_group/ payment_value_band/ payment_size/ installment_category/ installment_flag}
+
+
+
+
+4. bronze_order_reviews: (Doubtful)
+
+[review_id, order_id, review_score, review_comment_title, review_comment_message, review_creation_date, review_answer_timestamp]
+
+
+
+
+
+5. bronze_orders: 
+
+[order_id, customer_id, order_status, order_purchase_timestamp, order_approved_at, order_delivered_carrier_date, order_delivered_customer_date, order_estimated_delivery_date]
+
+
+Calculated Columns= {order_year_month/ order_processing_hours/ delivery_time_days/ delivery_status/ order_status_group}
+
+
+
+6. bronze_product_category_name: 
+
+[product_category_name, product_category_name_english]
+
+
+Calculated Columns= {category_name_title/ product_department}
+
+
+
+
+7. bronze_products: 
+
+[product_id, product_category_name, product_name_lenght, product_description_lenght, product_photos_qty, product_weight_g, product_length_cm, product_height_cm, product_width_cm]
+
+
+Calculated Columns= {product_size_category/ product_weight_category/ product_description_quality/ product_photo_catgory/ product_volumne_cm3}
+
+
+
+
+8. bronze_sellers: 
+
+[seller_id, seller_zip_code_prefix, seller_city, seller_state]
+
+
+
+Calculated Columns= {seller_state_name/ seller_full_location/ seller_region/ seller_location_key(city-state)/ seller_zip_prefix_length }
+
+
+
+
+
+
+
+## Dashboard Colors (Hex Codes):
+
+
+1. Main Colors:
+
+#78B9C6 [Teal color] 
+
+#D7E6E6 [Light Teal shade]
+
+#425B80 [Navy Blue]
+
+#6FC885 [Light Green]
+
+
+
+2. Color Combinations:
+
+a. Teal + Light Teal
+
+b. Light Green + Teal
+
+c. Light Teal + Navy Blue
+
+d. Navy Blue + Light Green
