@@ -1,0 +1,63 @@
+EDA process: Example
+
+
+# Read bronze_sellers delta table:
+df = spark.read.format('delta').load('Tables/dbo/bronze_sellers')
+
+# Show first 10 rows
+display(df.limit(10))
+
+
+## Data Inspection: 
+df.printSchema()
+
+
+print(f"Rows: {df.count()}")
+print(f"Columns: {len(df.columns)}")
+
+
+## Descriptive Statistics: (Spark can not calculate numerical statistics for string columns.)
+df.describe().show() 
+
+
+## Null Values Check
+from pyspark.sql.functions import col, count, when
+df.select([count(when(col(c).isNull(), c)).alias(c) for c in df.columns]).show()
+
+
+## Data Transformation (Table Based)
+
+
+
+# Verify transformed data
+df_transformed.select(
+    "seller_city",
+    "seller_state",
+    "seller_state_name",
+    "seller_full_location",
+    "seller_region",
+    "seller_location_key",
+    "seller_zip_prefix_length"
+
+).show(10, truncate=False)
+
+
+
+# Display result 
+display(df_transformed.limit(20))
+
+
+df_transformed.printSchema()
+
+
+## Values count Check after transformation
+print(f"Rows: {df_transformed.count()}")
+print(f"Columns: {len(df_transformed.columns)}")
+
+
+
+# Save transformed data as a new "silver_sellers" Delta table
+df_transformed.write \
+    .format("delta") \
+    .mode("overwrite") \
+    .saveAsTable("silver_sellers")
