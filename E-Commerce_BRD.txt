@@ -1,0 +1,230 @@
+Dashboard: Brazil E-Commerce Analytics 
+
+
+Canvas Size= ht= 1525 / wdt= 1560 (Each page 5-6 visual max/ min= 4)
+
+
+
+Report Title: E-Commerce Business Performance Dashboard
+
+
+Sub Header of Report= Turning Data into Smarter Business Decisions 
+
+
+
+## Last Refresh Date: (e.g., Last Refresh: 02 Aug 2026 02:52 PM)
+
+1. Last Refresh = "Last Refresh: " & FORMAT(NOW(), "dd MMM yyyy hh:mm AM/PM")
+
+2. Last Refresh = 
+VAR RefreshTime = FORMAT(NOW(), "dd MMM yyyy hh:mm AM/PM")
+RETURN
+"Last Refreshed"
+    & UNICHAR(10)
+    & RefreshTime
+
+
+
+Note: NOW() updates when the dataset refreshes (or when the report is recalculated in Desktop), so it represents the report's refresh time rather than the latest transaction date.
+
+
+
+
+
+All Slicers= 
+
+{Date/ Year/ Month/ Quarter/ Region/ Product Category/ Payment Type/ Delivery Status/ Order Status}
+
+
+
+Sample Kpis= {Total Orders/ Total Customers/ Total Sellers/ Total Revenue/ Total Products Sold/ AVG Order Value/ AVG Review Rating/ Total Freight Cost/ On Time Delivery%}
+
+
+
+## Reporting Pages: (KPIs + Graphs)
+
+1. Overview Analysis: Provide complete business health in one page.
+
+
+Kpis= {Total Orders/ Total Customers/ Total Sellers/ Total Revenue/ Total Products Sold/ AVG Order Value/ AVG Review Rating/ On Time Delivery Rate}
+
+
+
+Graphs:
+
+A. Revenue growth over time {Month-Year} (Line Chart)
+B. Orderes Trend
+B. Orders by Status (Donut Chart)
+C. Customer trend
+C. Revenue by Region {drill -> State}  (Filled Map)
+D. Top 10 Product Category (Horizontal Bar Chart)
+D. Revenue by Product Department
+E. Revenue by Payment Type (Treemap)
+F. Monthly Orders  (Clustered Column Chart)
+ 
+
+
+
+2. Sales Analysis: Analyze sales performance deeply.
+
+
+Kpis= {Revenue per Customer/ Revenue per Seller/ Revenue per Product/ Freight Cost/ Average Freight per Order}
+
+
+
+Graphs:
+
+A. Monthly sales growth. (Area Chart)
+B. Sales by Product Category. (Horizontal Bar Chart)
+B. Sales by Product Department
+C. Top 15 Products. (Column Chart)
+D. Sales by seller Region. (Map) 
+E. Sales by Weekday v/s Weekend
+E. Sales by time (hour)
+
+F. Average Order Value Trend. (Line Chart)
+F. Revenue Contribution. (Treemap)
+
+
+## Top 10 Cities/states [Bar Chart]
+
+
+
+
+3. Customer Behavior Analysis: Understand customer purchasing patterns.
+
+
+Kpis= {Revenue per Customer/ Average Order Value/ Repeat Customer Rate/ Average Delivery Time/ Average Review Rating}
+
+kpis_2= {AVG Purchase Value/ Avg Orders per Customer}
+
+
+Graphs:
+
+A. Customers by Region {drill- State - city}. (Map)
+B. Orders by Customer Region. (Stacked Bar Chart)
+B. Revenue by Region
+
+C. Purchase Analysis (Day) / (Hour)
+D. Weekend vs Weekday Purchases
+D. Customer Purchase Trend. (Line Chart)
+E. Average Purchase by regions/State. (Column Chart)
+F. Customer Distribution. (Donut Chart)
+G. Customer Details. (Table)
+
+Top Customers.(Gender wise) (Horizontal Bar Chart)
+
+
+
+4. Product Performance Analysis: Analyze products contributing to revenue.
+
+
+kpis_2= {Products Sold/ Revenue per Product/ Active Product Categories/ AVG Product Price/ AVG Freight Cost/ AVG Shipping Time}
+
+
+Graphs:
+
+A. Revenue by Product Category (Horizontal Bar Chart)
+A. Revenue by Product Department
+
+B. Product Weight Category (Donut Chart)
+B. Product Size Category (Column Chart)
+
+C. Revenue by Product Description Quality
+C. Revenue by Photo Category
+
+D. Shipping Cost by Category (Stacked Column Chart)
+E. Freight Value vs Product Price (Scatter Plot)
+F. Top 10 Products (Bar Chart)
+
+## Product Matrix
+
+
+
+5. Seller Performance Analysis: Evaluate seller performance.
+
+
+kpis= {Total Sellers/ Revenue per Seller/ Products Sold/ Average Processing Hours/ On-Time Delivery Rate/ Average Review Rating/ AVG Delivery Time}
+
+
+Graphs:
+
+A. Revenue by Seller (Horizontal Bar Chart)
+B. Sellers by region {State} (Map)
+C. Seller Revenue by Region (Treemap)
+D. Top Sellers (Column Chart)
+E. Delivery Time by Sellers
+F. Processing Hours by Sellers
+G. Freight Cost by Seller (Scatter Plot)
+
+## Seller Details
+
+
+
+6. Order & Payment Analysis: Monitor order fulfillment and payment behavior.
+
+
+kpis= {Total Orders/ Completed Orders/ Cancelled Orders/ AVG Delivery Days/ AVG Processing Hours}
+
+
+Graphs:
+
+A. Order by Status  (Donut Chart)
+A. Order by Time (month, Quarter)
+
+B. Delivery Performacne (Stacked Column Chart)
+C. Order Processing Hours (Box Plot) 
+D. Payment Type Analysis (Donut Chart)
+E. Installment Analysis (Column Chart)
+F. Payment Value Distribution (Histogram)
+
+G. Shipping Cost Category
+G. Shipping Time Category
+
+
+## Orders by Month (Line Chart)
+
+
+
+7. Reviews & Ratings Analysis: Measure customer satisfaction.
+
+
+kpis= {Average Rating/ Total Reviews/ Positive Reviews/ Negative Reviews/ AVG Review Response Hours}
+
+
+Graphs:
+
+A. Rating Distribution by Delivery status (Column Chart)
+A. Rating by Regions
+A. Rating by Product Category
+A. Rating by Sellers
+
+B. Sentiment Analysis (Donut Chart)
+C. Average Rating by Category (Horizontal Bar Chart)
+
+D. Review Trend (Line Chart)
+E. Review Response Time Trend (Column Chart)
+
+F. Review Details {Reviews with vs Without Comments} (Table)
+
+
+
+## Rating by Seller [Compare sellers based on- Rating and Revenue]  (Scatter Plot)
+
+
+
+
+
+
+- Tool Tip pages with Drill Through Pages:
+
+
+1. Revenue Tooltip -> Order Details
+
+2. Product Tooltip -> Product Details
+
+3. Seller Tooltip -> Seller Details
+
+4. Customer Tooltip -> Customer Details
+
+5. Review Tooltip -> Review Details
