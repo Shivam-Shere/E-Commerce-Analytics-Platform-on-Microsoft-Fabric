@@ -1,0 +1,777 @@
+KPIs  {Total Orders/ Total Customers/ Total Revenue (Sales)/ Total Products Sold (Products)/ Total Sellers (Dealers)/ AVG Review Rating/ Total Payment Value}  
+
+{AVG Order Value/ On Time Delivery Rate}
+
+
+
+Page-1: Overview Analysis 
+
+1. Total Orders:
+
+a. Total Orders= DISTINCTCOUNT(fact_orders[order_id])
+
+b. Total Orders % =
+DIVIDE(
+    [Total Orders],
+    CALCULATE([Total Orders], ALL(dim_date)),
+    0
+)
+
+c. PY Total Orders =
+CALCULATE(
+    [Total Orders],
+    SAMEPERIODLASTYEAR(dim_date[date])
+)
+
+d. YoY Total Orders =
+IF(
+    ISBLANK([PY Total Orders]),
+    BLANK(),
+    [Total Orders] - [PY Total Orders]
+)
+
+e. YoY % Total Orders =
+VAR PrevYear =
+COALESCE([PY Total Orders],0)
+
+RETURN
+IF(
+    PrevYear=0,
+    0,
+    DIVIDE([YoY Total Orders],PrevYear,0)
+)
+
+
+
+2. Total Customers:
+
+a. Total Customers = DISTINCTCOUNT(fact_orders[customer_id])
+
+b. Total Customers % =
+DIVIDE(
+    [Total Customers],
+    CALCULATE([Total Customers],ALL(dim_date)),
+    0
+)
+
+c. PY Total Customers =
+CALCULATE(
+    [Total Customers],
+    SAMEPERIODLASTYEAR(dim_date[date])
+)
+
+d. YoY Total Customers =
+IF(
+ISBLANK([PY Total Customers]),
+BLANK(),
+[Total Customers]-[PY Total Customers]
+)
+
+e. YoY % Total Customers =
+VAR PrevYear =
+COALESCE([PY Total Customers],0)
+
+RETURN
+
+IF(
+PrevYear=0,
+0,
+DIVIDE([YoY Total Customers],PrevYear,0)
+)
+
+
+
+3. Revenue:
+
+a. Total Revenue = SUM(fact_order_payment[payment_value])
+
+b. Revenue % =
+DIVIDE(
+[Total Revenue],
+CALCULATE([Total Revenue],ALL(dim_date)),
+0
+)
+
+c. PY Revenue =
+CALCULATE(
+[Total Revenue],
+SAMEPERIODLASTYEAR(dim_date[date])
+)
+
+d. YoY Revenue =
+IF(
+ISBLANK([PY Revenue]),
+BLANK(),
+[Total Revenue]-[PY Revenue]
+)
+
+e. YoY % Revenue =
+VAR PrevYear=
+COALESCE([PY Revenue],0)
+
+RETURN
+
+IF(
+PrevYear=0,
+0,
+DIVIDE([YoY Revenue],PrevYear,0)
+)
+
+
+
+4. Total Products Sold:
+
+a. Products Sold = COUNTROWS(fact_order_items)
+
+b. Products Sold % =
+DIVIDE(
+[Products Sold],
+CALCULATE([Products Sold],ALL(dim_date)),
+0
+)
+
+c. PY Products Sold =
+CALCULATE(
+[Products Sold],
+SAMEPERIODLASTYEAR(dim_date[date])
+)
+
+d. YoY Products Sold =
+IF(
+ISBLANK([PY Products Sold]),
+BLANK(),
+[Products Sold]-[PY Products Sold]
+)
+
+e. YoY % Products Sold =
+VAR PrevYear=
+COALESCE([PY Products Sold],0)
+
+RETURN
+
+IF(
+PrevYear=0,
+0,
+DIVIDE([YoY Products Sold],PrevYear,0)
+)
+
+
+
+5. Total Sellers:
+
+a. Total Sellers = DISTINCTCOUNT(fact_order_items[seller_id])
+
+b. Total Sellers % =
+DIVIDE(
+    [Total Sellers],
+    CALCULATE(
+        [Total Sellers],
+        ALL(dim_date)
+    ),
+    0
+)
+
+c. PY Total Sellers =
+CALCULATE(
+    [Total Sellers],
+    SAMEPERIODLASTYEAR(dim_date[date])
+)
+
+d. YoY Total Sellers =
+IF(
+    ISBLANK([PY Total Sellers]),
+    BLANK(),
+    [Total Sellers] - [PY Total Sellers]
+)
+
+e. YoY % Total Sellers =
+VAR PrevYear =
+    COALESCE([PY Total Sellers], 0)
+
+RETURN
+IF(
+    PrevYear = 0,
+    0,
+    DIVIDE(
+        [YoY Total Sellers],
+        PrevYear,
+        0
+    )
+)
+
+
+
+6. AVG Review Rating:
+
+a. Avg Review Rating = AVERAGE(fact_order_reviews[review_score])
+
+b. Avg Review Rating % =
+DIVIDE(
+    [Avg Review Rating],
+    CALCULATE(
+        [Avg Review Rating],
+        ALL(dim_date)
+    ),
+    0
+)
+
+c. PY Avg Review Rating =
+CALCULATE(
+    [Avg Review Rating],
+    SAMEPERIODLASTYEAR(dim_date[date])
+)
+
+d. YoY Avg Review Rating =
+IF(
+    ISBLANK([PY Avg Review Rating]),
+    BLANK(),
+    [Avg Review Rating] - [PY Avg Review Rating]
+)
+
+e. YoY % Avg Review Rating =
+VAR PrevYear =
+    COALESCE([PY Avg Review Rating], 0)
+
+RETURN
+IF(
+    PrevYear = 0,
+    0,
+    DIVIDE(
+        [YoY Avg Review Rating],
+        PrevYear,
+        0
+    )
+)
+
+
+7. Total Payment Value:
+
+a. Total Payment Value = SUM(fact_order_payments[payment_value])
+
+b. Total Payment Value % =
+DIVIDE(
+    [Total Payment Value],
+    CALCULATE(
+        [Total Payment Value],
+        ALL(dim_date)
+    ),
+    0
+)
+
+c. PY Total Payment Value =
+CALCULATE(
+    [Total Payment Value],
+    SAMEPERIODLASTYEAR(dim_date[date])
+)
+
+d. YoY Total Payment Value =
+IF(
+    ISBLANK([PY Total Payment Value]),
+    BLANK(),
+    [Total Payment Value] - [PY Total Payment Value]
+)
+
+e. YoY % Total Payment Value =
+VAR PrevYear =
+    COALESCE([PY Total Payment Value], 0)
+
+RETURN
+IF(
+    PrevYear = 0,
+    0,
+    DIVIDE(
+        [YoY Total Payment Value],
+        PrevYear,
+        0
+    )
+)
+
+
+
+Page-2: Sales Analysis
+
+Kpis= {Total Freight Cost/ Average Order Value (AOV)/ Average Selling Price (ASP)/ Revenue  per Product} 
+
+{Revenue per Seller/ Revenue per Customer}
+
+
+1. Revenue per Product:  (Total Revenue ÷ Total Products Sold)
+
+a. Revenue per Product =
+DIVIDE(
+    [Total Revenue],
+    DISTINCTCOUNT(fact_order_items[product_id]),
+    0
+)
+
+
+OR
+
+Revenue per Product =
+DIVIDE(
+    [Total Revenue],
+    [Total Products],
+    0
+)
+
+
+b. Revenue per Product % =
+DIVIDE(
+    [Revenue per Product],
+    CALCULATE(
+        [Revenue per Product],
+        ALL(dim_date)
+    ),
+    0
+)
+
+
+c. PY Revenue per Product =
+CALCULATE(
+    [Revenue per Product],
+    SAMEPERIODLASTYEAR(dim_date[date])
+)
+
+
+d. YoY Revenue per Product =
+IF(
+    ISBLANK([PY Revenue per Product]),
+    BLANK(),
+    [Revenue per Product] - [PY Revenue per Product]
+)
+
+e. YoY % Revenue per Product =
+VAR PrevYear =
+    COALESCE([PY Revenue per Product], 0)
+
+RETURN
+IF(
+    PrevYear = 0,
+    0,
+    DIVIDE(
+        [YoY Revenue per Product],
+        PrevYear,
+        0
+    )
+)
+
+
+2. Average Selling Price (ASP): {Total Sales ÷ Total Quantity Sold}
+
+a. Average Selling Price =
+DIVIDE(
+    [Total Sales],
+    COUNTROWS(fact_order_items),
+    0
+)
+
+OR
+
+Average Selling Price =
+DIVIDE(
+    [Total Sales],
+    [Total Items Sold],
+    0
+)
+
+
+b. Average Selling Price % =
+DIVIDE(
+    [Average Selling Price],
+    CALCULATE(
+        [Average Selling Price],
+        ALL(dim_date)
+    ),
+    0
+)
+
+
+c. PY Average Selling Price =
+CALCULATE(
+    [Average Selling Price],
+    SAMEPERIODLASTYEAR(dim_date[date])
+)
+
+
+d. YoY Average Selling Price =
+IF(
+    ISBLANK([PY Average Selling Price]),
+    BLANK(),
+    [Average Selling Price] - [PY Average Selling Price]
+)
+
+e. YoY % Average Selling Price =
+VAR PrevYear =
+    COALESCE([PY Average Selling Price], 0)
+
+RETURN
+IF(
+    PrevYear = 0,
+    0,
+    DIVIDE(
+        [YoY Average Selling Price],
+        PrevYear,
+        0
+    )
+)
+
+
+
+3.  Average Order Value: 
+
+a. Average Order Value =
+DIVIDE(
+    [Total Revenue],
+    [Total Orders],
+    0
+)
+
+b. Average Order Value % =
+DIVIDE(
+    [Average Order Value],
+    CALCULATE(
+        [Average Order Value],
+        ALL(dim_date)
+    ),
+    0
+)
+
+c. PY Average Order Value =
+CALCULATE(
+    [Average Order Value],
+    SAMEPERIODLASTYEAR(dim_date[date])
+)
+
+d. YoY Average Order Value =
+IF(
+    ISBLANK([PY Average Order Value]),
+    BLANK(),
+    [Average Order Value] - [PY Average Order Value]
+)
+
+e. YoY % Average Order Value =
+VAR PrevYear =
+    COALESCE([PY Average Order Value], 0)
+
+RETURN
+IF(
+    PrevYear = 0,
+    0,
+    DIVIDE(
+        [YoY Average Order Value],
+        PrevYear,
+        0
+    )
+)
+
+
+4. Total Freight Cost:
+
+
+a. Total Freight Cost =
+SUM(fact_order_items[freight_value])
+
+b. Total Freight Cost % =
+DIVIDE(
+    [Total Freight Cost],
+    CALCULATE(
+        [Total Freight Cost],
+        ALL(dim_date)
+    ),
+    0
+)
+
+c. PY Total Freight Cost =
+CALCULATE(
+    [Total Freight Cost],
+    SAMEPERIODLASTYEAR(dim_date[date])
+)
+
+d. YoY Total Freight Cost =
+IF(
+    ISBLANK([PY Total Freight Cost]),
+    BLANK(),
+    [Total Freight Cost] - [PY Total Freight Cost]
+)
+
+e. YoY % Total Freight Cost =
+VAR PrevYear =
+    COALESCE([PY Total Freight Cost], 0)
+
+RETURN
+IF(
+    PrevYear = 0,
+    0,
+    DIVIDE(
+        [YoY Total Freight Cost],
+        PrevYear,
+        0
+    )
+)
+
+
+
+Page-3: Order & Payment Analysis
+
+kpis= {Completed Orders/ Cancelled Orders/ Payment Success Rate/ AVG Payment Value/ Average Payments per Order}
+
+{AVG Delivery Days/ AVG Processing Hours}
+
+
+1. Completed Orders:
+
+a. Completed Orders =
+CALCULATE(
+    DISTINCTCOUNT(fact_orders[order_id]),
+    fact_orders[order_status] = "delivered"
+)
+
+b. Completed Orders % =
+DIVIDE(
+    [Completed Orders],
+    CALCULATE(
+        [Completed Orders],
+        ALL(dim_date)
+    ),
+    0
+)
+
+c. PY Completed Orders =
+CALCULATE(
+    [Completed Orders],
+    SAMEPERIODLASTYEAR(dim_date[date])
+)
+
+d. YoY Completed Orders =
+IF(
+    ISBLANK([PY Completed Orders]),
+    BLANK(),
+    [Completed Orders] - [PY Completed Orders]
+)
+
+e. YoY % Completed Orders =
+VAR PrevYear =
+    COALESCE([PY Completed Orders], 0)
+
+RETURN
+IF(
+    PrevYear = 0,
+    0,
+    DIVIDE(
+        [YoY Completed Orders],
+        PrevYear,
+        0
+    )
+)
+
+
+2. Cancelled Orders:
+
+a. Cancelled Orders =
+CALCULATE(
+    DISTINCTCOUNT(fact_orders[order_id]),
+    fact_orders[order_status] = "canceled"
+)
+
+b. Cancelled Orders % =
+DIVIDE(
+    [Cancelled Orders],
+    CALCULATE(
+        [Cancelled Orders],
+        ALL(dim_date)
+    ),
+    0
+)
+
+c. PY Cancelled Orders =
+CALCULATE(
+    [Cancelled Orders],
+    SAMEPERIODLASTYEAR(dim_date[date])
+)
+
+d. YoY Cancelled Orders =
+IF(
+    ISBLANK([PY Cancelled Orders]),
+    BLANK(),
+    [Cancelled Orders] - [PY Cancelled Orders]
+)
+
+e. YoY % Cancelled Orders =
+VAR PrevYear =
+    COALESCE([PY Cancelled Orders], 0)
+
+RETURN
+IF(
+    PrevYear = 0,
+    0,
+    DIVIDE(
+        [YoY Cancelled Orders],
+        PrevYear,
+        0
+    )
+)
+
+3. Payment Success Rate:
+
+a. Payment Success Rate =
+DIVIDE(
+    [Completed Orders],
+    [Total Orders],
+    0
+)
+
+b. Payment Success Rate % =
+DIVIDE(
+    [Payment Success Rate],
+    CALCULATE(
+        [Payment Success Rate],
+        ALL(dim_date)
+    ),
+    0
+)
+
+c. PY Payment Success Rate =
+CALCULATE(
+    [Payment Success Rate],
+    SAMEPERIODLASTYEAR(dim_date[date])
+)
+
+d. YoY Payment Success Rate =
+IF(
+    ISBLANK([PY Payment Success Rate]),
+    BLANK(),
+    [Payment Success Rate] - [PY Payment Success Rate]
+)
+
+e. YoY % Payment Success Rate =
+VAR PrevYear =
+    COALESCE([PY Payment Success Rate], 0)
+
+RETURN
+IF(
+    PrevYear = 0,
+    0,
+    DIVIDE(
+        [YoY Payment Success Rate],
+        PrevYear,
+        0
+    )
+)
+
+
+4. AVG Payment Value:
+
+a. Average Payment Value =
+DIVIDE(
+    [Total Payment Value],
+    [Total Orders],
+    0
+)
+
+b. Average Payment Value % =
+DIVIDE(
+    [Average Payment Value],
+    CALCULATE(
+        [Average Payment Value],
+        ALL(dim_date)
+    ),
+    0
+)
+
+c. PY Average Payment Value =
+CALCULATE(
+    [Average Payment Value],
+    SAMEPERIODLASTYEAR(dim_date[date])
+)
+
+d. YoY Average Payment Value =
+IF(
+    ISBLANK([PY Average Payment Value]),
+    BLANK(),
+    [Average Payment Value] - [PY Average Payment Value]
+)
+
+e. YoY % Average Payment Value =
+VAR PrevYear =
+    COALESCE([PY Average Payment Value], 0)
+
+RETURN
+IF(
+    PrevYear = 0,
+    0,
+    DIVIDE(
+        [YoY Average Payment Value],
+        PrevYear,
+        0
+    )
+)
+
+
+5. Average Payments per Order:
+
+a. Average Payments per Order =
+DIVIDE(
+    COUNTROWS(fact_order_payments),
+    [Total Orders],
+    0
+)
+
+OR
+
+Average Payments per Order =
+DIVIDE(
+    [Total Payment Transactions],
+    [Total Orders],
+    0
+)
+
+
+b. Average Payments per Order % =
+DIVIDE(
+    [Average Payments per Order],
+    CALCULATE(
+        [Average Payments per Order],
+        ALL(dim_date)
+    ),
+    0
+)
+
+
+c. PY Average Payments per Order =
+CALCULATE(
+    [Average Payments per Order],
+    SAMEPERIODLASTYEAR(dim_date[date])
+)
+
+d. YoY Average Payments per Order =
+IF(
+    ISBLANK([PY Average Payments per Order]),
+    BLANK(),
+    [Average Payments per Order] - [PY Average Payments per Order]
+)
+
+e. YoY % Average Payments per Order =
+VAR PrevYear =
+    COALESCE([PY Average Payments per Order], 0)
+
+RETURN
+IF(
+    PrevYear = 0,
+    0,
+    DIVIDE(
+        [YoY Average Payments per Order],
+        PrevYear,
+        0
+    )
+)
+
+
+Page-4: Customer Behavior Analysis
+
+Kpis= {Revenue per Customer/ Repeat Customer Rate/ Customer Retention Rate/ Average Orders per Customer/ Average Customer Spend/ 
+
+
+Average Delivery Time/ Average Review Rating}
+
+kpis_2= {AVG Purchase Value/ Avg Orders per Customer}
+
